@@ -1,6 +1,15 @@
 ---
 # ansible-role-miserver-support tasks file
 
+- name: purpose file
+  lineinfile:
+    path: /usr/local/etc/purpose
+    regexp: "^Purpose:"
+    line: "Purpose: {{ mcommunity_purpose }}"
+  when:
+    - mcommunity_purpose is defined
+    - mcommunity_purpose is not none
+
 - name: provision accounts
   command: "/usr/local/sbin/ldgrp2accts --noverify {{ item }}"
   with_items: "{{ mcommunity_group_accounts }}"

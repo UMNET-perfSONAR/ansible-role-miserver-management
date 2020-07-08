@@ -25,3 +25,13 @@
   when:
     - ldgrp2accts_result is defined
     - ldgrp2accts_result is not none
+
+- name: delete users
+  user:
+    name: "{{ item }}"
+    state: absent
+    remove: yes
+  with_items: "{{ miserver_userdel }}"
+  when:
+    - miserver_userdel is defined
+    - miserver_userdel is not none

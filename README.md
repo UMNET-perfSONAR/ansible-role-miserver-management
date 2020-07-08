@@ -1,2 +1,2 @@
-# ansible-role-miserver-management
-A role for managing MiServers
+# ansible-role-template
+Basic template for developing Ansible Roles

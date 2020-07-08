@@ -1,0 +1,18 @@
+---
+# ansible-role-miserver-support tasks file
+
+- name: provision accounts
+  command: "/usr/local/sbin/ldgrp2accts --noverify {{ item }}"
+  with_items: "{{ mcommunity_group_accounts }}"
+  register: ldgrp2accts_result
+  when:
+    - mcommunity_group_accounts is defined
+    - mcommunity_group_accounts is not none
+
+- name: provisioning results
+  debug:
+    msg: "{{ item }}"
+  with_items: "{{ ldgrp2accts_result | json_query('results[].stdout') }}"
+  when:
+    - ldgrp2accts_result is defined
+    - ldgrp2accts_result is not none
